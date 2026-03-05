@@ -10,7 +10,7 @@
 - [x] **INFRA-01**: Full stack starts with a single `docker compose up --build` on any machine with Docker installed
 - [x] **INFRA-02**: `.env.example` documents all tunable parameters (DRIVER_COUNT, EMIT_INTERVAL_MS, LOCATION_SERVICE_REPLICAS, PUSH_SERVER_REPLICAS, PARTITION_MULTIPLIER, SECRET_KEY_BASE)
 - [x] **INFRA-03**: Redpanda init container creates the `driver.location` topic with `PUSH_SERVER_REPLICAS × PARTITION_MULTIPLIER` partitions before any dependent service starts
-- [ ] **INFRA-04**: `docker-compose.stress.yml` overlay adds k6 service so stress tests can be launched with `docker compose -f docker-compose.yml -f docker-compose.stress.yml up k6`
+- [x] **INFRA-04**: `docker-compose.stress.yml` overlay adds k6 service so stress tests can be launched with `docker compose -f docker-compose.yml -f docker-compose.stress.yml up k6`
 - [x] **INFRA-05**: Services declare correct `depends_on` ordering so the stack starts cleanly without manual intervention
 
 ### Location Service
@@ -100,7 +100,7 @@
 | INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
-| INFRA-04 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Complete |
 | LSVC-01 | Phase 2 | Pending |
 | LSVC-02 | Phase 2 | Pending |

@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 01-infrastructure-01-01-PLAN.md
-last_updated: "2026-03-05T21:41:38.130Z"
+stopped_at: "Checkpoint 01-02: awaiting human verification of full stack startup"
+last_updated: "2026-03-05T21:44:56.460Z"
 last_activity: 2026-03-05 — Roadmap created, all 34 v1 requirements mapped to 8 phases
 progress:
   total_phases: 8
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -51,6 +51,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 01-infrastructure P01 | 2 | 2 tasks | 11 files |
+| Phase 01-infrastructure P02 | 3 | 1 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -67,6 +68,8 @@ Recent decisions affecting current work:
 - [Phase 01-infrastructure]: Nginx volume mount deferred to Phase 5: mounting empty conf.d causes nginx startup failure
 - [Phase 01-infrastructure]: Partition arithmetic computed in shell script (not compose YAML) because Docker Compose does not support arithmetic interpolation
 - [Phase 01-infrastructure]: kafka-exporter and cadvisor use platform: linux/amd64 for macOS M-series Rosetta 2 compatibility
+- [Phase 01-infrastructure]: mototaxi network declared external: true in stress overlay because docker-compose.yml owns network creation
+- [Phase 01-infrastructure]: K6_PROMETHEUS_RW_SERVER_URL uses internal Docker hostname prometheus:9090 for intra-network Prometheus remote write
 
 ### Pending Todos
 
@@ -78,6 +81,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-05T21:41:38.128Z
-Stopped at: Completed 01-infrastructure-01-01-PLAN.md
+Last session: 2026-03-05T21:44:56.458Z
+Stopped at: Checkpoint 01-02: awaiting human verification of full stack startup
 Resume file: None
