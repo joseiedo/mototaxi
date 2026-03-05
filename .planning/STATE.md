@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: "Checkpoint 01-02: awaiting human verification of full stack startup"
-last_updated: "2026-03-05T21:44:56.460Z"
+stopped_at: Completed 01-infrastructure-02-PLAN.md — Phase 1 infrastructure complete and human-verified
+last_updated: "2026-03-05T23:04:01.605Z"
 last_activity: 2026-03-05 — Roadmap created, all 34 v1 requirements mapped to 8 phases
 progress:
   total_phases: 8
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 01-infrastructure P01 | 2 | 2 tasks | 11 files |
 | Phase 01-infrastructure P02 | 3 | 1 tasks | 5 files |
+| Phase 01-infrastructure P02 | 35 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,8 @@ Recent decisions affecting current work:
 - [Phase 01-infrastructure]: kafka-exporter and cadvisor use platform: linux/amd64 for macOS M-series Rosetta 2 compatibility
 - [Phase 01-infrastructure]: mototaxi network declared external: true in stress overlay because docker-compose.yml owns network creation
 - [Phase 01-infrastructure]: K6_PROMETHEUS_RW_SERVER_URL uses internal Docker hostname prometheus:9090 for intra-network Prometheus remote write
+- [Phase 01-infrastructure]: mototaxi network declared external: true in stress overlay because docker-compose.yml owns network creation
+- [Phase 01-infrastructure]: rpk v25.x compatibility: --brokers flag removed; updated redpanda-init.sh to use --kafka-addr
 
 ### Pending Todos
 
@@ -81,6 +84,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-05T21:44:56.458Z
-Stopped at: Checkpoint 01-02: awaiting human verification of full stack startup
+Last session: 2026-03-05T23:04:01.603Z
+Stopped at: Completed 01-infrastructure-02-PLAN.md — Phase 1 infrastructure complete and human-verified
 Resume file: None
