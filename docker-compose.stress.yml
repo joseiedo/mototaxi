@@ -1,0 +1,19 @@
+# Stress test overlay — run with:
+# docker compose -f docker-compose.yml -f docker-compose.stress.yml up k6
+# or for a specific script:
+# docker compose -f docker-compose.yml -f docker-compose.stress.yml run k6 run /scripts/drivers.js -o experimental-prometheus-rw
+services:
+  k6:
+    image: grafana/k6:latest
+    container_name: k6
+    environment:
+      K6_PROMETHEUS_RW_SERVER_URL: http://prometheus:9090/api/v1/write
+      K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM: "true"
+    volumes:
+      - ./stress:/scripts
+    networks:
+      - mototaxi
+
+networks:
+  mototaxi:
+    external: true
