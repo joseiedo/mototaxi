@@ -2,7 +2,7 @@
 set -e
 
 echo "Waiting for Redpanda broker..."
-until rpk cluster health --brokers redpanda:9092 2>&1 | grep -q "Healthy: true"; do
+until rpk -X admin.hosts=redpanda:9644 cluster health 2>&1 | grep -qE "Healthy:\s+true"; do
   echo "  Broker not ready — retrying in 2s..."
   sleep 2
 done
@@ -13,10 +13,9 @@ echo "Broker healthy."
 PARTITIONS=$(( PUSH_SERVER_REPLICAS * PARTITION_MULTIPLIER ))
 echo "Creating topic driver.location with ${PARTITIONS} partitions..."
 
-rpk topic create driver.location \
+rpk -X brokers=redpanda:9092 topic create driver.location \
   --partitions "${PARTITIONS}" \
   --replicas 1 \
-  --brokers redpanda:9092 \
-  --if-not-exists
+  2>&1 | grep -vE "TOPIC_ALREADY_EXISTS|already exists" || true
 
 echo "Init complete."

@@ -14,12 +14,11 @@ services:
       - --pandaproxy-addr 0.0.0.0:8082
       - --advertise-pandaproxy-addr localhost:8082
       - --schema-registry-addr 0.0.0.0:8081
-      - --advertise-schema-registry-addr http://localhost:8081
       - --rpc-addr redpanda:33145
       - --advertise-rpc-addr redpanda:33145
       - --mode dev-container
     healthcheck:
-      test: ["CMD-SHELL", "rpk cluster health --brokers localhost:9092 | grep -q 'Healthy: true' || exit 1"]
+      test: ["CMD-SHELL", "rpk cluster health | grep -qE 'Healthy:\\s+true'"]
       interval: 10s
       timeout: 5s
       retries: 10
