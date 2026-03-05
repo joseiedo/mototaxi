@@ -47,7 +47,13 @@ Plans:
   2. After a `POST /location`, `GET /location/{driver_id}` returns the current position from Redis (and the key expires after 30 seconds of inactivity)
   3. `GET /metrics` returns Prometheus-formatted metrics including `location_updates_received_total`, `kafka_publish_duration_ms`, and `redis_write_duration_ms`
   4. The Docker image builds to a static binary `FROM scratch` final stage (~5MB), with no external runtime dependencies
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Go module scaffold, Kafka producer wrapper, POST /location handler with validation (LSVC-01)
+- [ ] 02-02-PLAN.md — Redis store (GEOADD+SET pipeline, GET), GET /location/{id} handler (LSVC-02, LSVC-03)
+- [ ] 02-03-PLAN.md — Prometheus metrics package (custom registry, 3 custom metrics, Go runtime collectors) (LSVC-04)
+- [ ] 02-04-PLAN.md — main.go wiring, Dockerfile FROM scratch, docker-compose.yml service block, human smoke test (LSVC-05)
 
 ### Phase 3: Driver Simulator
 **Goal**: The Go Driver Simulator seeds customer-driver assignments into Redis at startup and drives N goroutines emitting realistic GPS updates continuously
@@ -123,7 +129,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Infrastructure | 2/2 | Complete   | 2026-03-05 |
-| 2. Location Service | 0/TBD | Not started | - |
+| 2. Location Service | 0/4 | Not started | - |
 | 3. Driver Simulator | 0/TBD | Not started | - |
 | 4. Push Server | 0/TBD | Not started | - |
 | 5. Nginx Routing | 0/TBD | Not started | - |
