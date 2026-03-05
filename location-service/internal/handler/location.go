@@ -6,7 +6,9 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-chi/chi/v5"
 	"mototaxi/location-service/internal/kafka"
+	"mototaxi/location-service/internal/redisstore"
 )
 
 // locationPayload represents the POST /location request body.
@@ -61,16 +63,17 @@ func (p *locationPayload) validate() error {
 // Handler holds dependencies for HTTP route handlers.
 type Handler struct {
 	kafka kafka.Producer
+	redis redisstore.Store
 }
 
-// NewHandler creates a new Handler with the given Kafka producer.
-func NewHandler(kafka kafka.Producer) *Handler {
-	return &Handler{kafka: kafka}
+// NewHandler creates a new Handler with the given Kafka producer and Redis store.
+func NewHandler(kafka kafka.Producer, redis redisstore.Store) *Handler {
+	return &Handler{kafka: kafka, redis: redis}
 }
 
 // HandlePostLocation handles POST /location.
-// Validates the driver GPS payload and publishes synchronously to Kafka.
-// Returns 400 on validation failure, 503 on Kafka failure, 200 on success.
+// Validates the driver GPS payload, publishes synchronously to Kafka, then writes to Redis.
+// Returns 400 on validation failure, 503 on Kafka or Redis failure, 200 on success.
 func (h *Handler) HandlePostLocation(w http.ResponseWriter, r *http.Request) {
 	var payload locationPayload
 	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
@@ -94,7 +97,31 @@ func (h *Handler) HandlePostLocation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if err := h.redis.WriteLocation(r.Context(), payload.DriverID, *payload.Lat, *payload.Lng, encoded); err != nil {
+		writeError(w, http.StatusServiceUnavailable, "redis unavailable")
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
+}
+
+// HandleGetLocation handles GET /location/{driverID}.
+// Returns the stored JSON payload for the driver, 404 if not found, 503 if Redis is unavailable.
+func (h *Handler) HandleGetLocation(w http.ResponseWriter, r *http.Request) {
+	driverID := chi.URLParam(r, "driverID")
+
+	val, err := h.redis.ReadLocation(r.Context(), driverID)
+	if err == redisstore.ErrNotFound {
+		writeError(w, http.StatusNotFound, "not found")
+		return
+	}
+	if err != nil {
+		writeError(w, http.StatusServiceUnavailable, "redis unavailable")
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(val)
 }
 
 func writeError(w http.ResponseWriter, status int, message string) {
