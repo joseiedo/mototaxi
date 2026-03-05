@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-location-service-02-03-PLAN.md
-last_updated: "2026-03-05T23:52:07.414Z"
+stopped_at: "Completed 02-location-service-02-04-PLAN.md Task 1; awaiting checkpoint:human-verify at Task 2"
+last_updated: "2026-03-05T23:56:10.802Z"
 last_activity: 2026-03-05 — Roadmap created, all 34 v1 requirements mapped to 8 phases
 progress:
   total_phases: 8
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
   percent: 0
 ---
 
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-location-service P01 | 205 | 2 tasks | 5 files |
 | Phase 02-location-service P02 | 4 | 2 tasks | 4 files |
 | Phase 02-location-service P03 | 5 | 1 tasks | 2 files |
+| Phase 02-location-service P04 | 2 | 1 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,8 @@ Recent decisions affecting current work:
 - [Phase 02-location-service]: Pipeline not TxPipeline for GeoAdd+Set: no atomicity benefit from MULTI/EXEC, less overhead
 - [Phase 02-location-service]: ErrNotFound sentinel in redisstore package enables type-safe 404 vs 503 branching in handler
 - [Phase 02-location-service]: Custom prometheus.NewRegistry() per Metrics instance prevents already-registered panics and enables safe dependency injection
+- [Phase 02-location-service]: FROM scratch Docker image for location-service: static binary with no OS layer, no shell, ~5MB
+- [Phase 02-location-service]: No CA certs in FROM scratch image: Redis and Redpanda are plain TCP on Docker internal network
 
 ### Pending Todos
 
@@ -93,6 +96,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-05T23:52:07.412Z
-Stopped at: Completed 02-location-service-02-03-PLAN.md
+Last session: 2026-03-05T23:56:10.800Z
+Stopped at: Completed 02-location-service-02-04-PLAN.md Task 1; awaiting checkpoint:human-verify at Task 2
 Resume file: None

@@ -19,7 +19,7 @@
 - [x] **LSVC-02**: Location Service writes `GEOADD drivers:geo` and `SET driver:{id}:latest` (30s TTL) to Redis on each update
 - [x] **LSVC-03**: Location Service exposes `GET /location/{driver_id}` returning current position from Redis
 - [x] **LSVC-04**: Location Service exposes `GET /metrics` with standard Go runtime metrics plus custom counters: `location_updates_received_total`, `kafka_publish_duration_ms` (histogram), `redis_write_duration_ms` (histogram)
-- [ ] **LSVC-05**: Location Service Docker image uses multi-stage build with `FROM scratch` final stage (static binary, ~5MB)
+- [x] **LSVC-05**: Location Service Docker image uses multi-stage build with `FROM scratch` final stage (static binary, ~5MB)
 
 ### Driver Simulator
 
@@ -106,7 +106,7 @@
 | LSVC-02 | Phase 2 | Complete |
 | LSVC-03 | Phase 2 | Complete |
 | LSVC-04 | Phase 2 | Complete |
-| LSVC-05 | Phase 2 | Pending |
+| LSVC-05 | Phase 2 | Complete |
 | SIM-01 | Phase 3 | Pending |
 | SIM-02 | Phase 3 | Pending |
 | SIM-03 | Phase 3 | Pending |
