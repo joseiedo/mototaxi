@@ -8,6 +8,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"mototaxi/location-service/internal/kafka"
+	"mototaxi/location-service/internal/metrics"
 	"mototaxi/location-service/internal/redisstore"
 )
 
@@ -62,13 +63,14 @@ func (p *locationPayload) validate() error {
 
 // Handler holds dependencies for HTTP route handlers.
 type Handler struct {
-	kafka kafka.Producer
-	redis redisstore.Store
+	kafka    kafka.Producer
+	redis    redisstore.Store
+	metrics  *metrics.Metrics
 }
 
-// NewHandler creates a new Handler with the given Kafka producer and Redis store.
-func NewHandler(kafka kafka.Producer, redis redisstore.Store) *Handler {
-	return &Handler{kafka: kafka, redis: redis}
+// NewHandler creates a new Handler with the given Kafka producer, Redis store, and Metrics.
+func NewHandler(kafka kafka.Producer, redis redisstore.Store, m *metrics.Metrics) *Handler {
+	return &Handler{kafka: kafka, redis: redis, metrics: m}
 }
 
 // HandlePostLocation handles POST /location.
@@ -86,21 +88,27 @@ func (h *Handler) HandlePostLocation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	h.metrics.UpdatesReceived.Inc()
+
 	encoded, err := json.Marshal(payload)
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, "failed to encode payload")
 		return
 	}
 
+	kafkaStart := time.Now()
 	if err := h.kafka.Publish(r.Context(), payload.DriverID, encoded); err != nil {
 		writeError(w, http.StatusServiceUnavailable, "kafka unavailable")
 		return
 	}
+	h.metrics.KafkaDuration.Observe(float64(time.Since(kafkaStart).Milliseconds()))
 
+	redisStart := time.Now()
 	if err := h.redis.WriteLocation(r.Context(), payload.DriverID, *payload.Lat, *payload.Lng, encoded); err != nil {
 		writeError(w, http.StatusServiceUnavailable, "redis unavailable")
 		return
 	}
+	h.metrics.RedisDuration.Observe(float64(time.Since(redisStart).Milliseconds()))
 
 	w.WriteHeader(http.StatusOK)
 }
@@ -122,6 +130,12 @@ func (h *Handler) HandleGetLocation(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(val)
+}
+
+// HandleHealth handles GET /health.
+// Returns 200 OK to indicate the service is alive.
+func (h *Handler) HandleHealth(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
 }
 
 func writeError(w http.ResponseWriter, status int, message string) {

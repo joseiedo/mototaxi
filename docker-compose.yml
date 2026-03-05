@@ -65,6 +65,25 @@ services:
     networks:
       - mototaxi
 
+  location-service:
+    build:
+      context: ./location-service
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+      redpanda-init:
+        condition: service_completed_successfully
+    environment:
+      REDIS_ADDR: redis:6379
+      KAFKA_ADDR: redpanda:9092
+      KAFKA_TOPIC: driver.location
+    networks:
+      - mototaxi
+    # No host port mapping — Nginx fronts this service in Phase 5
+    # Prometheus scrapes location-service:8080 internally (Phase 7)
+
   prometheus:
     image: prom/prometheus:v2.53.0
     restart: unless-stopped

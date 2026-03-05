@@ -11,6 +11,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"mototaxi/location-service/internal/handler"
+	"mototaxi/location-service/internal/metrics"
 	"mototaxi/location-service/internal/redisstore"
 )
 
@@ -73,7 +74,8 @@ func (m *mockStore) ReadLocation(ctx context.Context, driverID string) ([]byte, 
 func (m *mockStore) Ping(ctx context.Context) error { return nil }
 
 func newTestRouter(prod *mockProducer, store *mockStore) http.Handler {
-	h := handler.NewHandler(prod, store)
+	m := metrics.NewMetrics()
+	h := handler.NewHandler(prod, store, m)
 	r := chi.NewRouter()
 	r.Post("/location", h.HandlePostLocation)
 	r.Get("/location/{driverID}", h.HandleGetLocation)
