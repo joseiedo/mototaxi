@@ -15,7 +15,7 @@
 
 ### Location Service
 
-- [ ] **LSVC-01**: Location Service accepts `POST /location` with driver JSON payload, validates it, publishes to Kafka topic `driver.location` keyed by `driver_id`, and returns HTTP 200
+- [x] **LSVC-01**: Location Service accepts `POST /location` with driver JSON payload, validates it, publishes to Kafka topic `driver.location` keyed by `driver_id`, and returns HTTP 200
 - [ ] **LSVC-02**: Location Service writes `GEOADD drivers:geo` and `SET driver:{id}:latest` (30s TTL) to Redis on each update
 - [ ] **LSVC-03**: Location Service exposes `GET /location/{driver_id}` returning current position from Redis
 - [ ] **LSVC-04**: Location Service exposes `GET /metrics` with standard Go runtime metrics plus custom counters: `location_updates_received_total`, `kafka_publish_duration_ms` (histogram), `redis_write_duration_ms` (histogram)
@@ -102,7 +102,7 @@
 | INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Complete |
-| LSVC-01 | Phase 2 | Pending |
+| LSVC-01 | Phase 2 | Complete |
 | LSVC-02 | Phase 2 | Pending |
 | LSVC-03 | Phase 2 | Pending |
 | LSVC-04 | Phase 2 | Pending |

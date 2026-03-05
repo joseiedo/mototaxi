@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-05T23:21:19.782Z"
+stopped_at: Completed 02-location-service-02-01-PLAN.md
+last_updated: "2026-03-05T23:44:43.028Z"
 last_activity: 2026-03-05 — Roadmap created, all 34 v1 requirements mapped to 8 phases
 progress:
   total_phases: 8
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
+  total_plans: 6
+  completed_plans: 3
   percent: 0
 ---
 
@@ -53,6 +53,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-infrastructure P01 | 2 | 2 tasks | 11 files |
 | Phase 01-infrastructure P02 | 3 | 1 tasks | 5 files |
 | Phase 01-infrastructure P02 | 35 | 2 tasks | 5 files |
+| Phase 02-location-service P01 | 205 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,9 @@ Recent decisions affecting current work:
 - [Phase 01-infrastructure]: K6_PROMETHEUS_RW_SERVER_URL uses internal Docker hostname prometheus:9090 for intra-network Prometheus remote write
 - [Phase 01-infrastructure]: mototaxi network declared external: true in stress overlay because docker-compose.yml owns network creation
 - [Phase 01-infrastructure]: rpk v25.x compatibility: --brokers flag removed; updated redpanda-init.sh to use --kafka-addr
+- [Phase 02-location-service]: Used *float64 pointer fields for lat/lng/bearing/speed_kmh to correctly handle equatorial zero-value coordinates
+- [Phase 02-location-service]: Producer interface in kafka package enables mockProducer in handler tests without live Kafka dependency
+- [Phase 02-location-service]: emitted_at validated as RFC3339 via time.Parse to catch malformed timestamps at ingest boundary
 
 ### Pending Todos
 
@@ -84,6 +88,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-05T23:21:19.781Z
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-location-service/02-CONTEXT.md
+Last session: 2026-03-05T23:44:43.026Z
+Stopped at: Completed 02-location-service-02-01-PLAN.md
+Resume file: None

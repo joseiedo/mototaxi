@@ -129,7 +129,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Infrastructure | 2/2 | Complete   | 2026-03-05 |
-| 2. Location Service | 0/4 | Not started | - |
+| 2. Location Service | 1/4 | In Progress|  |
 | 3. Driver Simulator | 0/TBD | Not started | - |
 | 4. Push Server | 0/TBD | Not started | - |
 | 5. Nginx Routing | 0/TBD | Not started | - |
