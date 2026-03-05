@@ -32,7 +32,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Redpanda `driver.location` topic exists with `PUSH_SERVER_REPLICAS × PARTITION_MULTIPLIER` partitions before any dependent service starts
   3. `.env.example` documents every tunable parameter and changing DRIVER_COUNT, EMIT_INTERVAL_MS, etc. in `.env` takes effect on the next `up`
   4. `docker compose -f docker-compose.yml -f docker-compose.stress.yml up k6` launches the k6 service without errors
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — docker-compose.yml skeleton, init script, env files, observability stubs
+- [ ] 01-02-PLAN.md — stress overlay, k6 placeholder scripts, full stack smoke verification
 
 ### Phase 2: Location Service
 **Goal**: The Go Location Service ingests driver GPS updates, validates them, persists to Redis, and publishes to Kafka — ready for downstream consumers
@@ -118,7 +122,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Infrastructure | 0/TBD | Not started | - |
+| 1. Infrastructure | 0/2 | Not started | - |
 | 2. Location Service | 0/TBD | Not started | - |
 | 3. Driver Simulator | 0/TBD | Not started | - |
 | 4. Push Server | 0/TBD | Not started | - |
