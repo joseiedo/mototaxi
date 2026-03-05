@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 02-location-service-02-01-PLAN.md
-last_updated: "2026-03-05T23:44:43.028Z"
+stopped_at: Completed 02-location-service-02-02-PLAN.md
+last_updated: "2026-03-05T23:49:22.308Z"
 last_activity: 2026-03-05 — Roadmap created, all 34 v1 requirements mapped to 8 phases
 progress:
   total_phases: 8
   completed_phases: 1
   total_plans: 6
-  completed_plans: 3
+  completed_plans: 4
   percent: 0
 ---
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-infrastructure P02 | 3 | 1 tasks | 5 files |
 | Phase 01-infrastructure P02 | 35 | 2 tasks | 5 files |
 | Phase 02-location-service P01 | 205 | 2 tasks | 5 files |
+| Phase 02-location-service P02 | 4 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,8 @@ Recent decisions affecting current work:
 - [Phase 02-location-service]: Used *float64 pointer fields for lat/lng/bearing/speed_kmh to correctly handle equatorial zero-value coordinates
 - [Phase 02-location-service]: Producer interface in kafka package enables mockProducer in handler tests without live Kafka dependency
 - [Phase 02-location-service]: emitted_at validated as RFC3339 via time.Parse to catch malformed timestamps at ingest boundary
+- [Phase 02-location-service]: Pipeline not TxPipeline for GeoAdd+Set: no atomicity benefit from MULTI/EXEC, less overhead
+- [Phase 02-location-service]: ErrNotFound sentinel in redisstore package enables type-safe 404 vs 503 branching in handler
 
 ### Pending Todos
 
@@ -88,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-05T23:44:43.026Z
-Stopped at: Completed 02-location-service-02-01-PLAN.md
+Last session: 2026-03-05T23:49:22.307Z
+Stopped at: Completed 02-location-service-02-02-PLAN.md
 Resume file: None
