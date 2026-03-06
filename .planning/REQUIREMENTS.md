@@ -24,7 +24,7 @@
 ### Driver Simulator
 
 - [x] **SIM-01**: Driver Simulator seeds customer→driver and driver→customer assignments into Redis at startup before the movement loop begins
-- [ ] **SIM-02**: Each driver goroutine moves point-to-point within the São Paulo bounding box (lat -23.65 to -23.45, lng -46.75 to -46.55) at a randomized speed of 20–60 km/h, picking a new destination on arrival
+- [x] **SIM-02**: Each driver goroutine moves point-to-point within the São Paulo bounding box (lat -23.65 to -23.45, lng -46.75 to -46.55) at a randomized speed of 20–60 km/h, picking a new destination on arrival
 - [ ] **SIM-03**: Driver Simulator emits `POST /location` with bearing, speed_kmh, and emitted_at timestamp every `EMIT_INTERVAL_MS` milliseconds per driver goroutine
 - [ ] **SIM-04**: Driver Simulator Docker image uses multi-stage build with `FROM scratch` final stage
 - [x] **SIM-05**: DRIVER_COUNT and EMIT_INTERVAL_MS are configurable via environment variables
@@ -108,7 +108,7 @@
 | LSVC-04 | Phase 2 | Complete |
 | LSVC-05 | Phase 2 | Complete |
 | SIM-01 | Phase 3 | Complete |
-| SIM-02 | Phase 3 | Pending |
+| SIM-02 | Phase 3 | Complete |
 | SIM-03 | Phase 3 | Pending |
 | SIM-04 | Phase 3 | Pending |
 | SIM-05 | Phase 3 | Complete |

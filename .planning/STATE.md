@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 03-driver-simulator-03-02-PLAN.md
-last_updated: "2026-03-06T17:24:27.778Z"
+stopped_at: Completed 03-driver-simulator-03-03-PLAN.md
+last_updated: "2026-03-06T17:28:49.645Z"
 last_activity: 2026-03-05 — Roadmap created, all 34 v1 requirements mapped to 8 phases
 progress:
   total_phases: 8
   completed_phases: 2
   total_plans: 11
-  completed_plans: 8
+  completed_plans: 9
   percent: 0
 ---
 
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-location-service P04 | 2 | 1 tasks | 5 files |
 | Phase 03-driver-simulator P01 | 3 | 1 tasks | 10 files |
 | Phase 03-driver-simulator P02 | 2 | 1 tasks | 1 files |
+| Phase 03-driver-simulator P03 | 3 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -91,6 +92,8 @@ Recent decisions affecting current work:
 - [Phase 03-driver-simulator]: Wave 0 TDD stubs: stub source files return errors.New(not implemented) so tests compile and fail RED
 - [Phase 03-driver-simulator]: Single MSet call chosen over per-key Set loop: one Redis round-trip for all 2*n keys regardless of driver count
 - [Phase 03-driver-simulator]: n<=0 guard returns nil without Redis call; idempotency achieved naturally by MSet overwrite semantics
+- [Phase 03-driver-simulator]: RandomPoint and RandomSpeed take explicit parameters (bbox, min/max) rather than package-level São Paulo constants — keeps geo package bbox-agnostic
+- [Phase 03-driver-simulator]: StepToward returns dst directly on overshoot without clamping — clamping is caller responsibility via BboxClamp
 
 ### Pending Todos
 
@@ -102,6 +105,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-06T17:24:27.776Z
-Stopped at: Completed 03-driver-simulator-03-02-PLAN.md
+Last session: 2026-03-06T17:28:49.643Z
+Stopped at: Completed 03-driver-simulator-03-03-PLAN.md
 Resume file: None
