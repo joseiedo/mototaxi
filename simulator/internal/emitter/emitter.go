@@ -15,10 +15,10 @@ import (
 
 // saoPauloBbox is the geographic bounding box used for generating random driver positions.
 var saoPauloBbox = geo.Bbox{
-	MinLat: -23.7,
-	MaxLat: -23.4,
-	MinLng: -46.9,
-	MaxLng: -46.3,
+	MinLat: -23.65,
+	MaxLat: -23.45,
+	MinLng: -46.75,
+	MaxLng: -46.55,
 }
 
 const (
