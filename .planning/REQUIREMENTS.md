@@ -27,7 +27,7 @@
 - [ ] **SIM-02**: Each driver goroutine moves point-to-point within the São Paulo bounding box (lat -23.65 to -23.45, lng -46.75 to -46.55) at a randomized speed of 20–60 km/h, picking a new destination on arrival
 - [ ] **SIM-03**: Driver Simulator emits `POST /location` with bearing, speed_kmh, and emitted_at timestamp every `EMIT_INTERVAL_MS` milliseconds per driver goroutine
 - [ ] **SIM-04**: Driver Simulator Docker image uses multi-stage build with `FROM scratch` final stage
-- [ ] **SIM-05**: DRIVER_COUNT and EMIT_INTERVAL_MS are configurable via environment variables
+- [x] **SIM-05**: DRIVER_COUNT and EMIT_INTERVAL_MS are configurable via environment variables
 
 ### Push Server
 
@@ -111,7 +111,7 @@
 | SIM-02 | Phase 3 | Pending |
 | SIM-03 | Phase 3 | Pending |
 | SIM-04 | Phase 3 | Pending |
-| SIM-05 | Phase 3 | Pending |
+| SIM-05 | Phase 3 | Complete |
 | PUSH-01 | Phase 4 | Pending |
 | PUSH-02 | Phase 4 | Pending |
 | PUSH-03 | Phase 4 | Pending |
