@@ -44,8 +44,8 @@ func DistanceKm(a, b Point) float64 {
 	return 2 * earthRadiusKm * math.Asin(math.Sqrt(s))
 }
 
-// StepToward moves from src toward dst at speedKmh over intervalSec seconds.
-// Returns the new position clamped to bbox; never overshoots dst.
+// StepToward returns the new position after moving from src toward dst at speedKmh over intervalSec seconds.
+// Never overshoots dst; returns dst directly if the step distance would exceed the remaining distance.
 func StepToward(src, dst Point, speedKmh, intervalSec float64) Point {
 	distKm := DistanceKm(src, dst)
 	stepKm := speedKmh * intervalSec / 3600.0
