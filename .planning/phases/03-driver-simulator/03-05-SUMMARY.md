@@ -12,7 +12,7 @@ requires:
 
 provides:
   - simulator/cmd/simulator/main.go — full wiring: config, Redis ping+seed, goroutines, graceful shutdown
-  - simulator/Dockerfile — multi-stage FROM scratch binary, ~5MB image
+  - simulator/Dockerfile — multi-stage FROM scratch binary, 6.5MB image
   - docker-compose.yml simulator service block with depends_on redis+location-service
   - .env.example LOCATION_SERVICE_URL documented
 
@@ -50,41 +50,44 @@ requirements-completed:
   - SIM-04
   - SIM-05
 
-duration: 5min
+duration: 10min
 completed: 2026-03-06
 ---
 
 # Phase 3 Plan 5: Simulator Integration Summary
 
-**FROM scratch Docker image and docker-compose service wiring the seeder+emitter goroutine pool with Redis ping-retry and signal-based graceful shutdown**
+**FROM scratch Docker image (6.5MB) and docker-compose service wiring the seeder+emitter goroutine pool with Redis ping-retry and signal-based graceful shutdown — smoke-tested with live Redis keys and POST /location at ~1ms latency**
 
 ## Performance
 
-- **Duration:** 5 min
+- **Duration:** ~10 min
 - **Started:** 2026-03-06T17:34:07Z
-- **Completed:** 2026-03-06T17:39:00Z
-- **Tasks:** 1 automated complete, 1 blocked by Docker daemon (resolved at human-verify checkpoint), 1 human-verify checkpoint
+- **Completed:** 2026-03-06T17:45:00Z
+- **Tasks:** 3 (1 automated, 1 Docker build, 1 human-verify checkpoint — all passed)
 - **Files modified:** 4
 
 ## Accomplishments
 
 - main.go fully wired: reads DRIVER_COUNT/EMIT_INTERVAL_MS/REDIS_ADDR/LOCATION_SERVICE_URL from env, pings Redis with retry, seeds assignments, launches N driver goroutines, shuts down cleanly on SIGINT/SIGTERM
-- simulator/Dockerfile created with multi-stage FROM scratch pattern (matches location-service pattern, ~5MB image)
+- simulator/Dockerfile: multi-stage FROM scratch image builds to 6.5MB (well under 15MB limit)
 - docker-compose.yml updated with simulator service block (depends_on redis healthy + location-service started)
 - .env.example updated to document LOCATION_SERVICE_URL variable
+- Human smoke test confirmed: `customer:customer-1:driver` → `"driver-1"`, `driver:driver-1:customer` → `"customer-1"`, POST /location 200 OK at ~1ms latency
 
 ## Task Commits
 
 Each task was committed atomically:
 
 1. **Task 1: main.go wiring + Dockerfile + docker-compose integration** - `39ce837` (feat)
+2. **Task 2: Docker image build verification** - human-verified (6,840,504 bytes)
+3. **Task 3: Human smoke test checkpoint** - approved
 
-**Plan metadata:** TBD (docs: complete plan)
+**Plan metadata:** `c1bfcab` (docs: complete plan summary and state update)
 
 ## Files Created/Modified
 
 - `simulator/cmd/simulator/main.go` - Full entrypoint: config via envOr/mustInt, pingWithRetry, SeedAssignments, goroutine pool, graceful shutdown
-- `simulator/Dockerfile` - Multi-stage FROM scratch binary build
+- `simulator/Dockerfile` - Multi-stage FROM scratch binary build, 6.5MB
 - `docker-compose.yml` - Added simulator service block after location-service
 - `.env.example` - Added LOCATION_SERVICE_URL=http://location-service:8080
 
@@ -96,11 +99,11 @@ Each task was committed atomically:
 
 ## Deviations from Plan
 
-None - plan executed exactly as written. Tests (TestEnvConfig, TestMustInt) from prior plan already existed and continued passing after main() implementation.
+None - plan executed exactly as written. Tests (TestEnvConfig, TestMustInt) from prior plan already existed and continued passing after main() implementation. Docker build verification was deferred to human checkpoint due to Docker daemon not running during automated execution; results confirmed during smoke test.
 
 ## Issues Encountered
 
-Task 2 (Docker image build verification) could not be executed automatically because the Docker daemon (OrbStack) was not running. The Dockerfile structure is correct and matches the validated location-service FROM scratch pattern. Human verification at the checkpoint (Task 3) covers this.
+Task 2 (Docker image build verification) could not be executed automatically because the Docker daemon (OrbStack) was not running at execution time. Resolved at human-verify checkpoint — image built at 6.5MB, all Redis keys correct, location-service receiving traffic.
 
 ## User Setup Required
 
@@ -108,9 +111,11 @@ None - no external service configuration required beyond running the Docker stac
 
 ## Next Phase Readiness
 
-- Simulator is deployable as Docker container and integrates into the full docker-compose stack
-- Phase 4 (push-server) can proceed once human smoke test at checkpoint confirms Redis keys and location-service log entries
-- DRIVER_COUNT and EMIT_INTERVAL_MS are configurable via .env
+- Simulator fully deployable as Docker container and integrated into the full docker-compose stack
+- Redis assignment seeding confirmed working (SIM-04)
+- DRIVER_COUNT/EMIT_INTERVAL_MS env config confirmed working (SIM-05)
+- POST /location traffic from simulator to location-service confirmed at 200 OK ~1ms latency
+- Phase 4 (push-server) is unblocked
 
 ---
 *Phase: 03-driver-simulator*
@@ -124,3 +129,4 @@ None - no external service configuration required beyond running the Docker stac
 - .env.example LOCATION_SERVICE_URL: FOUND
 - 03-05-SUMMARY.md: FOUND
 - Commit 39ce837: FOUND
+- Human smoke test: APPROVED (6.5MB image, Redis keys correct, POST /location 200 OK)
