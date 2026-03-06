@@ -99,3 +99,26 @@ func TestArrived(t *testing.T) {
 		t.Error("Arrived(p, far) = true, want false (0.5 km distance)")
 	}
 }
+
+// TestRandomPoint verifies that RandomPoint always returns a point within the bbox (property test).
+func TestRandomPoint(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		p := geo.RandomPoint(saoPauloBbox)
+		if p.Lat < bboxMinLat || p.Lat > bboxMaxLat {
+			t.Errorf("iteration %d: RandomPoint().Lat = %.6f, want in [%.2f, %.2f]", i, p.Lat, bboxMinLat, bboxMaxLat)
+		}
+		if p.Lng < bboxMinLng || p.Lng > bboxMaxLng {
+			t.Errorf("iteration %d: RandomPoint().Lng = %.6f, want in [%.2f, %.2f]", i, p.Lng, bboxMinLng, bboxMaxLng)
+		}
+	}
+}
+
+// TestRandomSpeed verifies that RandomSpeed always returns a value in [20.0, 60.0) (property test).
+func TestRandomSpeed(t *testing.T) {
+	for i := 0; i < 100; i++ {
+		speed := geo.RandomSpeed(20.0, 60.0)
+		if speed < 20.0 || speed >= 60.0 {
+			t.Errorf("iteration %d: RandomSpeed() = %.4f, want in [20.0, 60.0)", i, speed)
+		}
+	}
+}
