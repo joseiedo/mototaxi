@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 03-driver-simulator-03-04-PLAN.md
-last_updated: "2026-03-06T17:33:00.722Z"
+stopped_at: Completed 03-driver-simulator-03-05-PLAN.md (awaiting human-verify checkpoint)
+last_updated: "2026-03-06T17:37:37.786Z"
 last_activity: 2026-03-05 — Roadmap created, all 34 v1 requirements mapped to 8 phases
 progress:
   total_phases: 8
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 11
-  completed_plans: 10
+  completed_plans: 11
   percent: 0
 ---
 
@@ -61,6 +61,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 03-driver-simulator P02 | 2 | 1 tasks | 1 files |
 | Phase 03-driver-simulator P03 | 3 | 2 tasks | 2 files |
 | Phase 03-driver-simulator P04 | 2 | 2 tasks | 2 files |
+| Phase 03-driver-simulator P05 | 5 | 1 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -98,6 +99,8 @@ Recent decisions affecting current work:
 - [Phase 03-driver-simulator]: emitLocation returns nil on non-200 (fire-and-forget): 503 logged via log.Printf, not surfaced to caller
 - [Phase 03-driver-simulator]: saoPauloBbox as package-level var in emitter: RunDriver signature stays clean while geo package remains bbox-agnostic
 - [Phase 03-driver-simulator]: io.Copy(io.Discard, resp.Body) always called before Close: prevents TCP connection pool exhaustion at high tick frequencies
+- [Phase 03-driver-simulator]: signal.NotifyContext for graceful shutdown: idiomatic Go 1.16+ pattern propagating cancellation to all driver goroutines automatically
+- [Phase 03-driver-simulator]: FROM scratch multi-stage Dockerfile for simulator: matches location-service pattern, static CGO_ENABLED=0 binary, ~5MB image
 
 ### Pending Todos
 
@@ -109,6 +112,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-06T17:33:00.720Z
-Stopped at: Completed 03-driver-simulator-03-04-PLAN.md
+Last session: 2026-03-06T17:37:37.784Z
+Stopped at: Completed 03-driver-simulator-03-05-PLAN.md (awaiting human-verify checkpoint)
 Resume file: None

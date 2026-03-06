@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Infrastructure** - Docker Compose skeleton with Redpanda, Redis, and all config externalized (completed 2026-03-05)
 - [x] **Phase 2: Location Service** - Go ingest service: validates, publishes to Kafka, writes to Redis, exposes metrics (completed 2026-03-05)
-- [ ] **Phase 3: Driver Simulator** - Go simulator seeds assignments and emits realistic GPS updates per driver goroutine
+- [x] **Phase 3: Driver Simulator** - Go simulator seeds assignments and emits realistic GPS updates per driver goroutine (completed 2026-03-06)
 - [ ] **Phase 4: Push Server** - Elixir/Phoenix service holds WebSocket connections, consumes Kafka via Broadway, fans out via PubSub
 - [ ] **Phase 5: Nginx Routing** - Nginx as dual-role load balancer: least_conn for location-service, ip_hash sticky for push-servers
 - [ ] **Phase 6: Frontend** - Static HTML + Leaflet.js tracking and overview pages, served by Nginx
@@ -137,7 +137,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 |-------|----------------|--------|-----------|
 | 1. Infrastructure | 2/2 | Complete   | 2026-03-05 |
 | 2. Location Service | 4/4 | Complete   | 2026-03-05 |
-| 3. Driver Simulator | 3/5 | In Progress|  |
+| 3. Driver Simulator | 5/5 | Complete   | 2026-03-06 |
 | 4. Push Server | 0/TBD | Not started | - |
 | 5. Nginx Routing | 0/TBD | Not started | - |
 | 6. Frontend | 0/TBD | Not started | - |
