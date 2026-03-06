@@ -84,6 +84,24 @@ services:
     # No host port mapping — Nginx fronts this service in Phase 5
     # Prometheus scrapes location-service:8080 internally (Phase 7)
 
+  simulator:
+    build:
+      context: ./simulator
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+      location-service:
+        condition: service_started
+    environment:
+      REDIS_ADDR: redis:6379
+      LOCATION_SERVICE_URL: ${LOCATION_SERVICE_URL:-http://location-service:8080}
+      DRIVER_COUNT: ${DRIVER_COUNT:-10}
+      EMIT_INTERVAL_MS: ${EMIT_INTERVAL_MS:-1000}
+    networks:
+      - mototaxi
+
   prometheus:
     image: prom/prometheus:v2.53.0
     restart: unless-stopped
