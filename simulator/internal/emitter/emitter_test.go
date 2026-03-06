@@ -1,6 +1,7 @@
 package emitter
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -86,5 +87,30 @@ func TestEmitNon200(t *testing.T) {
 	// Must not panic, must not return error (503 is logged only).
 	if err := emitLocation(client, srv.URL+"/location", payload); err != nil {
 		t.Errorf("emitLocation returned error on 503, want nil: %v", err)
+	}
+}
+
+// TestRunDriverCancels verifies that RunDriver exits cleanly when the context is cancelled.
+func TestRunDriverCancels(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer srv.Close()
+
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel() // cancel immediately
+
+	client := &http.Client{Timeout: 5 * time.Second}
+	done := make(chan struct{})
+	go func() {
+		RunDriver(ctx, 42, client, srv.URL, 100)
+		close(done)
+	}()
+
+	select {
+	case <-done:
+		// exited cleanly
+	case <-time.After(100 * time.Millisecond):
+		t.Error("RunDriver did not exit within 100ms after context cancellation")
 	}
 }
