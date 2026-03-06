@@ -64,7 +64,14 @@ Plans:
   2. Each driver goroutine moves point-to-point within the São Paulo bounding box at 20–60 km/h, picks a new destination on arrival, and never leaves the bounding box
   3. Every driver goroutine posts `POST /location` with bearing, speed_kmh, and emitted_at on the configured EMIT_INTERVAL_MS cadence
   4. Changing DRIVER_COUNT and EMIT_INTERVAL_MS in `.env` and restarting the simulator changes the number of active goroutines and emission frequency accordingly
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Go module scaffold, Wave 0 test stubs for all packages (SIM-05)
+- [ ] 03-02-PLAN.md — Redis assignment seeder: SeedAssignments with MSet, miniredis tests (SIM-01)
+- [ ] 03-03-PLAN.md — Geographic math: haversine, bearing, StepToward, bbox clamp, arrival detection (SIM-02)
+- [ ] 03-04-PLAN.md — Driver emitter: locationPayload, emitLocation, RunDriver tick loop (SIM-03)
+- [ ] 03-05-PLAN.md — main.go wiring, Dockerfile FROM scratch, docker-compose integration, smoke test (SIM-04, SIM-05)
 
 ### Phase 4: Push Server
 **Goal**: The Elixir/Phoenix Push Server holds customer WebSocket connections, resolves assigned drivers, consumes Kafka with backpressure via Broadway, and fans location updates out via Phoenix.PubSub across all replicas
@@ -130,7 +137,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 |-------|----------------|--------|-----------|
 | 1. Infrastructure | 2/2 | Complete   | 2026-03-05 |
 | 2. Location Service | 4/4 | Complete   | 2026-03-05 |
-| 3. Driver Simulator | 0/TBD | Not started | - |
+| 3. Driver Simulator | 0/5 | Not started | - |
 | 4. Push Server | 0/TBD | Not started | - |
 | 5. Nginx Routing | 0/TBD | Not started | - |
 | 6. Frontend | 0/TBD | Not started | - |
