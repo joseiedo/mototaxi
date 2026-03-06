@@ -82,7 +82,14 @@ Plans:
   2. After joining, the client continues to receive location updates each time the simulator emits a new position for the assigned driver
   3. With two push-server replicas running, a customer connected to replica A receives updates even when the Kafka message is consumed by replica B (Phoenix.PubSub + Redis adapter delivers cross-replica)
   4. `GET /metrics` (or PromEx endpoint) exposes `push_server_connections_active`, `push_server_messages_delivered_total`, and `push_server_delivery_latency_ms`
-**Plans**: TBD
+**Plans**: 5 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — Mix project scaffold, all deps, config skeleton, Wave 0 failing test stubs (PUSH-01 through PUSH-05)
+- [ ] 04-02-PLAN.md — Phoenix Endpoint, UserSocket, CustomerChannel: join/3 with Redis lookups + handle_info/2 (PUSH-01, PUSH-02)
+- [ ] 04-03-PLAN.md — Broadway pipeline: BroadwayKafka producer, handle_message/3 with PubSub broadcast, handle_failed/2 (PUSH-03)
+- [ ] 04-04-PLAN.md — PubSub Redis adapter supervision tree wiring + PromEx custom metrics + telemetry emission (PUSH-04, PUSH-05)
+- [ ] 04-05-PLAN.md — Dockerfile (elixir:1.18-alpine builder, alpine:3.21 runtime), docker-compose service block, human smoke test (PUSH-01 through PUSH-05)
 
 ### Phase 5: Nginx Routing
 **Goal**: Nginx sits in front of all services — routing POST /location to location-service replicas with least_conn, and WebSocket /socket connections to push-server replicas with ip_hash stickiness
@@ -138,7 +145,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 1. Infrastructure | 2/2 | Complete   | 2026-03-05 |
 | 2. Location Service | 4/4 | Complete   | 2026-03-05 |
 | 3. Driver Simulator | 6/6 | Complete   | 2026-03-06 |
-| 4. Push Server | 0/TBD | Not started | - |
+| 4. Push Server | 0/5 | Not started | - |
 | 5. Nginx Routing | 0/TBD | Not started | - |
 | 6. Frontend | 0/TBD | Not started | - |
 | 7. Observability | 0/TBD | Not started | - |
