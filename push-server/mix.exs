@@ -33,6 +33,7 @@ defmodule PushServer.MixProject do
       {:plug_cowboy, "~> 2.7"},
       {:broadway, "~> 1.2"},
       {:broadway_kafka, "~> 0.4"},
+      {:snappyer, "~> 1.0"},
       {:redix, "~> 1.5"},
       {:jason, "~> 1.4"},
       {:prom_ex, "~> 1.11"},

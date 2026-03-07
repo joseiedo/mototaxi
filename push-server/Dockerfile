@@ -1,7 +1,7 @@
 # --- Build stage ---
 FROM elixir:1.18-alpine AS builder
 
-RUN apk add --no-cache build-base git
+RUN apk add --no-cache build-base git cmake
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ COPY lib lib
 RUN mix release
 
 # --- Runtime stage ---
-FROM alpine:3.21 AS app
+FROM alpine:3.23 AS app
 
 RUN apk add --no-cache libstdc++ openssl ncurses-libs
 

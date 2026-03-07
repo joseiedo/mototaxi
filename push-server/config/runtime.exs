@@ -3,7 +3,8 @@ import Config
 if config_env() == :prod do
   config :push_server, PushServerWeb.Endpoint,
     secret_key_base: System.fetch_env!("SECRET_KEY_BASE"),
-    http: [port: String.to_integer(System.get_env("PORT", "4000"))]
+    http: [port: String.to_integer(System.get_env("PORT", "4000"))],
+    server: true
 
   config :push_server, :pubsub,
     name: PushServer.PubSub,
