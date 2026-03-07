@@ -8,3 +8,5 @@ config :push_server, PushServerWeb.Endpoint,
 
 config :phoenix, :json_library, Jason
 config :logger, :console, format: "$time $metadata[$level] $message\n"
+
+import_config "#{config_env()}.exs"

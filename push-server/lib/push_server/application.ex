@@ -7,7 +7,7 @@ defmodule PushServer.Application do
 
     children = [
       # PushServer.PromEx,            # Plan 04
-      # {Phoenix.PubSub, Application.get_env(:push_server, :pubsub)},  # Plan 04
+      {Phoenix.PubSub, Application.get_env(:push_server, :pubsub, name: PushServer.PubSub)},
       {Redix, {redis_url, [name: :redix]}},
       # PushServer.Pipeline,          # Plan 03
       PushServerWeb.Endpoint
