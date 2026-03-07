@@ -99,7 +99,10 @@ Plans:
   1. `POST /location` sent to Nginx is distributed across location-service replicas (observable via per-replica request counters in metrics)
   2. WebSocket connections to `/socket` are forwarded with correct Upgrade/Connection headers and do not drop during a 3600-second idle hold
   3. Scaling location-service or push-server replicas and reloading Nginx adds the new upstream without dropping existing connections
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 05-01-PLAN.md — nginx.conf (two upstreams), docker-compose.yml replicas + volume mount, smoke verification
 
 ### Phase 6: Frontend
 **Goal**: The browser can track a single driver on `/track/{customer_id}` with smooth animated movement, and a dispatcher can view all drivers simultaneously on `/overview` — both pages require no framework and no API key
