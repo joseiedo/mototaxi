@@ -13,6 +13,9 @@ defmodule PushServerWeb.CustomerChannel do
           socket
           |> assign(:driver_id, driver_id)
           |> assign(:customer_id, customer_id)
+        :telemetry.execute([:push_server, :connections], %{count: 1}, %{
+          customer_id: customer_id
+        })
         send(self(), {:push_initial, driver_id})
         {:ok, socket}
 
@@ -23,9 +26,21 @@ defmodule PushServerWeb.CustomerChannel do
   end
 
   @impl true
+  def terminate(_reason, socket) do
+    :telemetry.execute([:push_server, :connections], %{count: -1}, %{
+      customer_id: socket.assigns[:customer_id]
+    })
+    :ok
+  end
+
+  @impl true
   def handle_info({:push_initial, driver_id}, socket) do
     case get_latest_position(driver_id) do
-      {:ok, payload} -> push(socket, "location_update", payload)
+      {:ok, payload} ->
+        push(socket, "location_update", payload)
+        :telemetry.execute([:push_server, :messages, :delivered], %{count: 1}, %{})
+        latency = compute_latency_ms(Map.get(payload, "emitted_at", ""))
+        :telemetry.execute([:push_server, :delivery, :latency], %{duration: latency}, %{})
       {:skip} -> :ok
     end
     {:noreply, socket}
@@ -34,6 +49,9 @@ defmodule PushServerWeb.CustomerChannel do
   @impl true
   def handle_info(%Phoenix.Socket.Broadcast{event: event, payload: payload}, socket) do
     push(socket, event, payload)
+    :telemetry.execute([:push_server, :messages, :delivered], %{count: 1}, %{})
+    latency = compute_latency_ms(Map.get(payload, "emitted_at", ""))
+    :telemetry.execute([:push_server, :delivery, :latency], %{duration: latency}, %{})
     {:noreply, socket}
   end
 
@@ -50,6 +68,14 @@ defmodule PushServerWeb.CustomerChannel do
       {:ok, nil} -> {:skip}
       {:ok, json} -> {:ok, Jason.decode!(json)}
       {:error, _} -> {:skip}
+    end
+  end
+
+  defp compute_latency_ms(emitted_at_str) do
+    with {:ok, emitted_at, _} <- DateTime.from_iso8601(emitted_at_str) do
+      DateTime.diff(DateTime.utc_now(), emitted_at, :millisecond)
+    else
+      _ -> 0
     end
   end
 end
