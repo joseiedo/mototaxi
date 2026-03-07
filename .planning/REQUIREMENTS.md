@@ -31,11 +31,11 @@
 
 ### Push Server
 
-- [ ] **PUSH-01**: Push Server accepts WebSocket connections and joins clients to a `customer:{customer_id}` Phoenix Channel
-- [ ] **PUSH-02**: On channel join, Push Server resolves assigned driver from Redis and immediately pushes the driver's current position to the connecting client
-- [ ] **PUSH-03**: Broadway consumes Kafka topic `driver.location` with backpressure and broadcasts each message via `Phoenix.PubSub` to the `driver:{driver_id}` topic
-- [ ] **PUSH-04**: Phoenix.PubSub uses the Redis adapter so broadcasts reach all push-server replicas (customer receives updates regardless of which replica they connected to)
-- [ ] **PUSH-05**: Push Server exposes Prometheus metrics via PromEx: BEAM memory, scheduler utilization, process count, Phoenix channel events, `push_server_connections_active` (gauge), `push_server_messages_delivered_total` (counter), `push_server_delivery_latency_ms` (histogram measuring `now - emitted_at`)
+- [x] **PUSH-01**: Push Server accepts WebSocket connections and joins clients to a `customer:{customer_id}` Phoenix Channel
+- [x] **PUSH-02**: On channel join, Push Server resolves assigned driver from Redis and immediately pushes the driver's current position to the connecting client
+- [x] **PUSH-03**: Broadway consumes Kafka topic `driver.location` with backpressure and broadcasts each message via `Phoenix.PubSub` to the `driver:{driver_id}` topic
+- [x] **PUSH-04**: Phoenix.PubSub uses the Redis adapter so broadcasts reach all push-server replicas (customer receives updates regardless of which replica they connected to)
+- [x] **PUSH-05**: Push Server exposes Prometheus metrics via PromEx: BEAM memory, scheduler utilization, process count, Phoenix channel events, `push_server_connections_active` (gauge), `push_server_messages_delivered_total` (counter), `push_server_delivery_latency_ms` (histogram measuring `now - emitted_at`)
 
 ### Frontend
 
@@ -112,11 +112,11 @@
 | SIM-03 | Phase 3 | Complete |
 | SIM-04 | Phase 3 | Complete |
 | SIM-05 | Phase 3 | Complete |
-| PUSH-01 | Phase 4 | Pending |
-| PUSH-02 | Phase 4 | Pending |
-| PUSH-03 | Phase 4 | Pending |
-| PUSH-04 | Phase 4 | Pending |
-| PUSH-05 | Phase 4 | Pending |
+| PUSH-01 | Phase 4 | Complete |
+| PUSH-02 | Phase 4 | Complete |
+| PUSH-03 | Phase 4 | Complete |
+| PUSH-04 | Phase 4 | Complete |
+| PUSH-05 | Phase 4 | Complete |
 | NGINX-01 | Phase 5 | Pending |
 | NGINX-02 | Phase 5 | Pending |
 | FRONT-01 | Phase 6 | Pending |
