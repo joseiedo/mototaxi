@@ -46,7 +46,7 @@
 
 ### Nginx
 
-- [ ] **NGINX-01**: Nginx routes `POST /location` and `GET /drivers` to location-service replicas using `least_conn` load balancing
+- [ ] **NGINX-01**: Nginx routes `POST /location` and `GET /location/{driver_id}` to location-service replicas using `least_conn` load balancing
 - [ ] **NGINX-02**: Nginx routes WebSocket connections at `/socket` to push-server replicas using `ip_hash` sticky sessions, with correct Upgrade/Connection headers and 3600s read timeout
 
 ### Observability
