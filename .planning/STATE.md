@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 04-push-server-04-PLAN.md
-last_updated: "2026-03-07T00:21:48.580Z"
+stopped_at: Completed 04-push-server-05-PLAN.md
+last_updated: "2026-03-07T00:51:33.084Z"
 last_activity: 2026-03-05 — Roadmap created, all 34 v1 requirements mapped to 8 phases
 progress:
   total_phases: 8
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 17
-  completed_plans: 16
+  completed_plans: 17
   percent: 0
 ---
 
@@ -67,6 +67,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-push-server P02 | 5 | 2 tasks | 14 files |
 | Phase 04-push-server P03 | 5 | 1 tasks | 2 files |
 | Phase 04-push-server P04 | 3 | 2 tasks | 6 files |
+| Phase 04-push-server P05 | 26 | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -115,6 +116,10 @@ Recent decisions affecting current work:
 - [Phase 04-push-server]: kafka_hosts read from Application.get_env with [redpanda: 9092] keyword list default; handle_failed/2 returns messages unchanged for BroadwayKafka offset commit semantics
 - [Phase 04-push-server]: last_value gauge for connections: connections can decrease (terminate/2), so gauge is correct semantics vs counter
 - [Phase 04-push-server]: compute_latency_ms returns 0 on parse error: delivery latency is observability data — parse failure should not crash the channel
+- [Phase 04-push-server]: cmake added to builder apk: required by crc32cer NIF (BroadwayKafka dependency)
+- [Phase 04-push-server]: Alpine 3.23 (not 3.21) for runtime: must match builder OpenSSL version to avoid CRYPTO_library_init errors
+- [Phase 04-push-server]: server: true in runtime.exs: Phoenix OTP releases do not start HTTP server without explicit opt-in
+- [Phase 04-push-server]: snappyer dep added: BroadwayKafka requires Snappy decompression NIF for Kafka message decoding
 
 ### Pending Todos
 
@@ -126,6 +131,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07T00:21:48.578Z
-Stopped at: Completed 04-push-server-04-PLAN.md
+Last session: 2026-03-07T00:51:33.081Z
+Stopped at: Completed 04-push-server-05-PLAN.md
 Resume file: None
