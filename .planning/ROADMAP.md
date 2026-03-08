@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Location Service** - Go ingest service: validates, publishes to Kafka, writes to Redis, exposes metrics (completed 2026-03-05)
 - [x] **Phase 3: Driver Simulator** - Go simulator seeds assignments and emits realistic GPS updates per driver goroutine (completed 2026-03-06)
 - [x] **Phase 4: Push Server** - Elixir/Phoenix service holds WebSocket connections, consumes Kafka via Broadway, fans out via PubSub (completed 2026-03-07)
-- [ ] **Phase 5: Nginx Routing** - Nginx as dual-role load balancer: least_conn for location-service, ip_hash sticky for push-servers
+- [x] **Phase 5: Nginx Routing** - Nginx as dual-role load balancer: least_conn for location-service, ip_hash sticky for push-servers (completed 2026-03-08)
 - [ ] **Phase 6: Frontend** - Static HTML + Leaflet.js tracking and overview pages, served by Nginx
 - [ ] **Phase 7: Observability** - Prometheus, cAdvisor, kafka-exporter, and all 4 Grafana dashboards auto-provisioned
 - [ ] **Phase 8: Stress Tests** - k6 scripts for driver load, WebSocket load, and end-to-end latency, with metrics in Grafana
@@ -149,7 +149,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | 2. Location Service | 4/4 | Complete   | 2026-03-05 |
 | 3. Driver Simulator | 6/6 | Complete   | 2026-03-06 |
 | 4. Push Server | 5/5 | Complete   | 2026-03-07 |
-| 5. Nginx Routing | 0/TBD | Not started | - |
+| 5. Nginx Routing | 1/1 | Complete   | 2026-03-08 |
 | 6. Frontend | 0/TBD | Not started | - |
 | 7. Observability | 0/TBD | Not started | - |
 | 8. Stress Tests | 0/TBD | Not started | - |

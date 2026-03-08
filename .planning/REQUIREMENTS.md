@@ -46,8 +46,8 @@
 
 ### Nginx
 
-- [ ] **NGINX-01**: Nginx routes `POST /location` and `GET /location/{driver_id}` to location-service replicas using `least_conn` load balancing
-- [ ] **NGINX-02**: Nginx routes WebSocket connections at `/socket` to push-server replicas using `ip_hash` sticky sessions, with correct Upgrade/Connection headers and 3600s read timeout
+- [x] **NGINX-01**: Nginx routes `POST /location` and `GET /location/{driver_id}` to location-service replicas using `least_conn` load balancing
+- [x] **NGINX-02**: Nginx routes WebSocket connections at `/socket` to push-server replicas using `ip_hash` sticky sessions, with correct Upgrade/Connection headers and 3600s read timeout
 
 ### Observability
 
@@ -117,8 +117,8 @@
 | PUSH-03 | Phase 4 | Complete |
 | PUSH-04 | Phase 4 | Complete |
 | PUSH-05 | Phase 4 | Complete |
-| NGINX-01 | Phase 5 | Pending |
-| NGINX-02 | Phase 5 | Pending |
+| NGINX-01 | Phase 5 | Complete |
+| NGINX-02 | Phase 5 | Complete |
 | FRONT-01 | Phase 6 | Pending |
 | FRONT-02 | Phase 6 | Pending |
 | FRONT-03 | Phase 6 | Pending |

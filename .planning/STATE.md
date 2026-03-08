@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 5 context gathered
-last_updated: "2026-03-07T23:36:11.666Z"
+stopped_at: Completed 05-nginx-routing-05-01-PLAN.md
+last_updated: "2026-03-08T00:35:46.299Z"
 last_activity: 2026-03-05 — Roadmap created, all 34 v1 requirements mapped to 8 phases
 progress:
   total_phases: 8
-  completed_phases: 4
-  total_plans: 17
-  completed_plans: 17
+  completed_phases: 5
+  total_plans: 18
+  completed_plans: 18
   percent: 0
 ---
 
@@ -68,6 +68,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 04-push-server P03 | 5 | 1 tasks | 2 files |
 | Phase 04-push-server P04 | 3 | 2 tasks | 6 files |
 | Phase 04-push-server P05 | 26 | 3 tasks | 7 files |
+| Phase 05-nginx-routing P01 | 41 | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -120,6 +121,9 @@ Recent decisions affecting current work:
 - [Phase 04-push-server]: Alpine 3.23 (not 3.21) for runtime: must match builder OpenSSL version to avoid CRYPTO_library_init errors
 - [Phase 04-push-server]: server: true in runtime.exs: Phoenix OTP releases do not start HTTP server without explicit opt-in
 - [Phase 04-push-server]: snappyer dep added: BroadwayKafka requires Snappy decompression NIF for Kafka message decoding
+- [Phase 05-nginx-routing]: least_conn for location-service (stateless HTTP), ip_hash for push-server (stateful WebSocket sticky sessions)
+- [Phase 05-nginx-routing]: resolver 127.0.0.11 valid=30s in http block: Docker embedded DNS for runtime upstream hostname resolution
+- [Phase 05-nginx-routing]: Push-server host port 4000 removed: all external access through nginx:80, simulator routes through http://nginx/location
 
 ### Pending Todos
 
@@ -131,6 +135,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07T23:36:11.661Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-nginx-routing/05-CONTEXT.md
+Last session: 2026-03-08T00:35:46.297Z
+Stopped at: Completed 05-nginx-routing-05-01-PLAN.md
+Resume file: None
