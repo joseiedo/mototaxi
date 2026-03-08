@@ -17,7 +17,8 @@ done
 distinct_count=$(echo "$seen_ips" | tr ' ' '\n' | grep -v '^$' | sort -u | wc -l | tr -d ' ')
 echo "  Distinct upstream IPs seen: $distinct_count"
 if [ "$distinct_count" -lt 2 ]; then
-  echo "  WARN: Only $distinct_count distinct upstream IP(s) — expected ≥2 with 2 replicas"
+  echo "  FAIL: Only $distinct_count distinct upstream IP(s) — expected ≥2 with 2 replicas"
+  exit 1
 else
   echo "  OK: Distribution confirmed across $distinct_count replicas"
 fi
@@ -35,7 +36,8 @@ echo "  WebSocket response: $ws_status"
 if echo "$ws_status" | grep -q "101"; then
   echo "  OK: WebSocket upgrade succeeded"
 else
-  echo "  NOTE: Got '$ws_status' — if push-server is not running, 502 is expected"
+  echo "  FAIL: Got '$ws_status' — expected 101 Switching Protocols"
+  exit 1
 fi
 
 echo ""
