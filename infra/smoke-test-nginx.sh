@@ -24,12 +24,13 @@ fi
 
 echo ""
 echo "--- NGINX-02: WebSocket upgrade (expect 101 Switching Protocols) ---"
-ws_status=$(curl -si \
+ws_raw=$(curl -si --max-time 3 \
   -H "Connection: Upgrade" \
   -H "Upgrade: websocket" \
   -H "Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==" \
   -H "Sec-WebSocket-Version: 13" \
-  http://localhost/socket/websocket 2>/dev/null | head -1)
+  http://localhost/socket/websocket 2>/dev/null) || true
+ws_status=$(echo "$ws_raw" | head -1)
 echo "  WebSocket response: $ws_status"
 if echo "$ws_status" | grep -q "101"; then
   echo "  OK: WebSocket upgrade succeeded"
